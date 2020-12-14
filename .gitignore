@@ -4,6 +4,7 @@ build
 node_modules
 test
 src/**.js
+src/api/*
 coverage
 *.log
 package-lock.json
