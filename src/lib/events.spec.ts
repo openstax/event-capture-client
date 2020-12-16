@@ -55,8 +55,7 @@ test('createEvent event where providers provide all input', (t) => {
     testProvider2
   );
 
-  // TODO - make this arg optional when empty
-  const initializedEvent = testEventFactory({});
+  const initializedEvent = testEventFactory();
   const payload = initializedEvent();
 
   t.deepEqual(payload, {testString: 'asdf', testNumber: 4});
