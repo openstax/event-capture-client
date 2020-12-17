@@ -2,14 +2,16 @@ import { EventsApi } from "../api/apis/EventsApi";
 
 import { EventPayload } from "./events";
 import { jobRunner, JobRunnerOptions } from "./jobRunner";
+import { client } from "./client";
 
 type Queue = Array<() => EventPayload>;
 
 type FlushOptions = JobRunnerOptions & {
+  client: EventsApi;
   reportError: (error: any) => void;
 }
 
-const makeFlush = (client: EventsApi, queue: Queue, options: FlushOptions) => jobRunner(() => {
+const makeFlush = (queue: Queue, options: FlushOptions) => jobRunner(() => {
   const records = queue.splice(0);
 
   const events = records.map(record => record());
@@ -25,27 +27,28 @@ const makeFlush = (client: EventsApi, queue: Queue, options: FlushOptions) => jo
   // TODO - change api swagger
   //  - addEvent should be addEvents
   //  - payload schema is ridiculous
-  return client.addEvent({events: {events}})
+  return options.client.addEvent({events: {events}})
     .catch(handleError);
 
 }, options);
 
 type Options = Partial<FlushOptions> & {
-  document?: Document
+  document?: Document;
 };
 
 const defaultOptions: Required<Options> = {
+  client,
   reportError: () => null,
   timerLength: 60000,
   document: document,
 };
 
-export const createCaptureContext = (client: EventsApi, passedOptions: Options = {}) => {
+export const createCaptureContext = (passedOptions: Options = {}) => {
   const options = {...defaultOptions, ...passedOptions};
 
   const queue: Queue = [];
 
-  const flush = makeFlush(client, queue, options);
+  const flush = makeFlush(queue, options);
 
   const capture = (event: Queue[number]) => {
     queue.push(event);

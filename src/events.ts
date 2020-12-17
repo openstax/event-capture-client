@@ -1,4 +1,4 @@
-import { AccessedStudyguideV1ToJSON, AccessedStudyguideV1TypeEnum } from "./api/models/AccessedStudyguideV1.js";
+import { AccessedStudyguideV1ToJSON, AccessedStudyguideV1TypeEnum } from "./api/models/AccessedStudyguideV1";
 import { CreatedHighlightV1ToJSON, CreatedHighlightV1TypeEnum } from "./api/models/CreatedHighlightV1";
 import { createEvent } from "./lib/events";
 import { clientClockProvider, createSessionProvider, typeProvider} from "./providers";
