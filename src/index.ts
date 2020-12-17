@@ -1,3 +1,9 @@
-import * as Events from './events';
+import * as events from './events';
+import { createCaptureContext } from "./lib/capture";
+import * as providers from './providers';
 
-export { Events };
+export {
+  events,
+  providers,
+  createCaptureContext,
+};
