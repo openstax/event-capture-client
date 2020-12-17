@@ -5,13 +5,13 @@ import { createEvent } from "./lib/events";
 
 const sessionProvider = createSessionProvider();
 
-export const accessedStudyguide = createEvent(AccessedStudyguideV1ToJSON)(
+export const accessedStudyguide = createEvent(AccessedStudyguideV1ToJSON,
   typeProvider(AccessedStudyguideV1TypeEnum.OrgOpenstaxEcAccessedStudyguideV1),
   clientClockProvider,
   sessionProvider
 );
 
-export const createdHighlight = createEvent(CreatedHighlightV1ToJSON)(
+export const createdHighlight = createEvent(CreatedHighlightV1ToJSON,
   typeProvider(CreatedHighlightV1TypeEnum.OrgOpenstaxEcCreatedHighlightV1),
   clientClockProvider,
   sessionProvider

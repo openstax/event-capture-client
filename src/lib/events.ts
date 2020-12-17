@@ -1,4 +1,4 @@
-import { combineManyProviders, Provider, GetProviderFields, GetProviderInput } from "./providers";
+import { combineManyProviders, Provider, GetProviderFields, GetProviderInput, CombineManyProviders } from "./providers";
 
 export type EventPayload = {[key: string]: any};
 
@@ -10,15 +10,24 @@ export type EventFactory<I extends EventPayload, P extends Provider<any, any>> =
 
 export type EventPayloadFormatter<P extends EventPayload> = (payload: P | null | undefined) => EventPayload;
 
-export const createEvent = <I extends EventPayload>(formatter: EventPayloadFormatter<I>) =>
-  <Pa extends Array<Provider<any, any>>>(...providers: Pa) => {
-    const provider = combineManyProviders(...providers);
+type CreateEvent = {
+  <I extends EventPayload>(formatter: EventPayloadFormatter<I>): (input: I) => () => EventPayload;
+  <I extends EventPayload, Pa extends Provider<any, any>[]>(formatter: EventPayloadFormatter<I>, ...providers: Pa): EventFactory<I, CombineManyProviders<Pa>>;
+}
 
-    const factory: EventFactory<I, typeof provider> = (...args) => {
-      const initializedProvider = provider(args[0]);
-      return () => formatter({...initializedProvider(), ...args[0]})
-    };
+export const createEvent: CreateEvent = <I extends EventPayload, Pa extends Array<Provider<any, any>>>(formatter: EventPayloadFormatter<I>, ...providers: Pa) => {
+  const [first, ...rest] = providers;
 
-    return factory;
-
+  if (!first) {
+    return (input: I) => () => formatter(input);
   }
+
+  const provider = combineManyProviders(first, ...rest);
+  const factory: EventFactory<I, typeof provider> = (...args) => {
+    const initializedProvider = provider(args[0]);
+    return () => formatter({...initializedProvider(), ...args[0]})
+  };
+
+  return factory;
+
+}
