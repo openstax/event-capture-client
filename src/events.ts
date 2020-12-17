@@ -1,7 +1,7 @@
 import { AccessedStudyguideV1ToJSON, AccessedStudyguideV1TypeEnum } from "./api/models/AccessedStudyguideV1.js";
 import { CreatedHighlightV1ToJSON, CreatedHighlightV1TypeEnum } from "./api/models/CreatedHighlightV1";
-import { clientClockProvider, typeProvider, createSessionProvider} from "./providers";
 import { createEvent } from "./lib/events";
+import { clientClockProvider, createSessionProvider, typeProvider} from "./providers";
 
 const sessionProvider = createSessionProvider();
 

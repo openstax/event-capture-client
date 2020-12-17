@@ -1,4 +1,4 @@
-import { combineManyProviders, Provider, GetProviderFields, GetProviderInput, CombineManyProviders } from "./providers";
+import { CombineManyProviders, combineManyProviders, GetProviderFields, GetProviderInput, Provider } from "./providers";
 
 export type EventPayload = {[key: string]: any};
 
