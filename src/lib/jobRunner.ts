@@ -1,6 +1,7 @@
 
 export interface JobRunnerOptions {
-  timerLength?: number;
+  batchInterval: number;
+  retryInterval: number;
 }
 
 export const jobRunner = (job: () => Promise<any>, options: JobRunnerOptions) => {
@@ -13,15 +14,15 @@ export const jobRunner = (job: () => Promise<any>, options: JobRunnerOptions) =>
 
   const run = () => {
     clearTimer();
-    job();
+    job().catch(() => runLater(options.retryInterval));
   }
 
-  const runLater = () => {
+  const runLater = (interval: number = options.batchInterval) => {
     if (timer) {
       return;
     }
 
-    timer = setTimeout(run, options.timerLength);
+    timer = setTimeout(run, interval);
   };
 
   return {

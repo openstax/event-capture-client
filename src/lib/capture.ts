@@ -14,11 +14,12 @@ type FlushOptions = JobRunnerOptions & {
 const makeFlush = (queue: Queue, options: FlushOptions) => jobRunner(() => {
   const records = queue.splice(0);
 
-  const events = records.map(record => record());
+  const events = records.map(record => ({data: record()}));
 
   const handleError = (e: any) => {
     if (e instanceof TypeError) {
       queue.unshift(...records);
+      throw e;
     } else {
       options.reportError(e);
     }
@@ -39,7 +40,8 @@ type Options = Partial<FlushOptions> & {
 const defaultOptions: Required<Options> = {
   client,
   reportError: () => null,
-  timerLength: 60000,
+  batchInterval: 60000,
+  retryInterval: 60000,
   document: document,
 };
 
