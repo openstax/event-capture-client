@@ -15,12 +15,12 @@ export type CombineManyProviders<P extends Provider<any, any>[]> = Provider<
 
 const combineProviders = <P1 extends Provider<any, any>, P2 extends Provider<any, any>>(p1: P1, p2: P2): Provider<GetProviderInput<P1> & GetProviderInput<P2>, GetProviderFields<P1> & GetProviderFields<P2>> =>
   (input) => {
-    const initialzedP1 = p1(input);
-    const initialzedP2 = p2(input);
+    const initializedP1 = p1(input);
+    const initializedP2 = p2(input);
 
     return () => ({
-      ...initialzedP1(),
-      ...initialzedP2(),
+      ...initializedP1(),
+      ...initializedP2(),
     });
   }
 

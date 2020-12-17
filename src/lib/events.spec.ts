@@ -8,15 +8,15 @@ test('createEvent basic event', (t) => {
 
   const testEventFactory = createEvent(testFormatter);
 
-  const initializedEvent = testEventFactory({num: 4, str: 'asdf'});
+  const initializedEvent = testEventFactory({num: 4, str: 'test'});
   const payload = initializedEvent();
 
-  t.deepEqual(payload, {testString: 'asdf', testNumber: 4});
+  t.deepEqual(payload, {testString: 'test', testNumber: 4});
 });
 
 test('createEvent event with basic provider', (t) => {
   const testFormatter = (input: {str: string, num: number} | null | undefined): any => input ? ({testString: input.str, testNumber: input.num}) : null;
-  const testProvider = () => () => ({str: 'asdf'})
+  const testProvider = () => () => ({str: 'test'})
 
   const testEventFactory = createEvent(testFormatter,
     testProvider
@@ -25,7 +25,7 @@ test('createEvent event with basic provider', (t) => {
   const initializedEvent = testEventFactory({num: 4});
   const payload = initializedEvent();
 
-  t.deepEqual(payload, {testString: 'asdf', testNumber: 4});
+  t.deepEqual(payload, {testString: 'test', testNumber: 4});
 });
 
 test('createEvent event with provider that takes input', (t) => {
@@ -44,7 +44,7 @@ test('createEvent event with provider that takes input', (t) => {
 
 test('createEvent event where providers provide all input', (t) => {
   const testFormatter = (input: {str: string, num: number} | null | undefined): any => input ? ({testString: input.str, testNumber: input.num}) : null;
-  const testProvider1 = () => () => ({str: 'asdf'})
+  const testProvider1 = () => () => ({str: 'test'})
   const testProvider2 = () => () => ({num: 4})
 
   const testEventFactory = createEvent(testFormatter,
@@ -55,5 +55,5 @@ test('createEvent event where providers provide all input', (t) => {
   const initializedEvent = testEventFactory();
   const payload = initializedEvent();
 
-  t.deepEqual(payload, {testString: 'asdf', testNumber: 4});
+  t.deepEqual(payload, {testString: 'test', testNumber: 4});
 });
