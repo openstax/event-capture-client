@@ -1,8 +1,8 @@
 import { EventsApi } from "../api/apis/EventsApi";
 
+import { client } from "./client";
 import { EventPayload } from "./events";
 import { jobRunner, JobRunnerOptions } from "./jobRunner";
-import { client } from "./client";
 
 type Queue = Array<() => EventPayload>;
 
