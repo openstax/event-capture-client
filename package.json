@@ -9,7 +9,7 @@
     "build": "./script/build-dist",
     "fix": "run-s fix:*",
     "fix:lint": "eslint src --ext .ts --fix",
-    "test": "run-s build test:*",
+    "test": "run-s test:*",
     "test:lint": "eslint src --ext .ts",
     "test:spelling": "cspell -e \"src/api/**/*.ts\" \"{README.md,.github/*.md,src/**/*.ts}\"",
     "test:unit": "nyc --silent ava",
