@@ -1,0 +1,19 @@
+{
+  "name": "@openstax/event-capture-client",
+  "version": "1.0.0",
+  "description": "send event data to api",
+  "main": "index.js",
+  "module": "index.es.js",
+  "typings": "index.d.ts",
+  "repository": "https://github.com/openstax/event-capture-client",
+  "license": "MIT",
+  "keywords": [],
+  "scripts": {
+  },
+  "engines": {
+    "node": ">=10"
+  },
+  "dependencies": {
+    "uuid": "^8.3.2"
+  }
+}
