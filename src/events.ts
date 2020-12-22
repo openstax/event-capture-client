@@ -3,7 +3,9 @@ import { CreatedHighlightV1ToJSON, CreatedHighlightV1TypeEnum } from "./api/mode
 import { createEvent } from "./lib/events";
 import { clientClockProvider, createSessionProvider, typeProvider} from "./providers";
 
-const sessionProvider = createSessionProvider();
+export { createEvent };
+
+export const sessionProvider = createSessionProvider();
 
 export const accessedStudyguide = createEvent(AccessedStudyguideV1ToJSON,
   typeProvider(AccessedStudyguideV1TypeEnum.OrgOpenstaxEcAccessedStudyguideV1),
