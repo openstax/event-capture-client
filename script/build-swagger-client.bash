@@ -14,13 +14,16 @@ fi
 api_host=${API_HOST:-"event-capture.openstax.org"}
 swagger_path="/api/v0/swagger.json"
 
+secure=${SECURE:-"true"}
+protocol=$(test "$secure" = "true" && echo "https" || echo "http")
+
 project_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." >/dev/null 2>&1 && pwd )"
 temp_dir=$(mktemp -d -t ci-XXXXXXXXXX)
 
 echo "wrangling swagger file: $temp_dir/swagger.json" > /dev/stderr;
 
-curl -s "https://$api_host$swagger_path" \
-  | docker run --rm -i stedolan/jq --arg host "$api_host" '. + {host: $host, schemes: ["https"]}' \
+curl -s "$protocol://$api_host$swagger_path" \
+  | docker run --rm -i stedolan/jq --arg host "$api_host" --arg protocol "$protocol" '. + {host: $host, schemes: ["$protocol"]}' \
   > "$temp_dir/swagger.json"
 
 echo "building swagger into: $temp_dir/src" > /dev/stderr;
