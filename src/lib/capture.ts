@@ -25,10 +25,7 @@ const makeFlush = (queue: Queue, options: FlushOptions) => jobRunner(() => {
     }
   };
 
-  // TODO - change api swagger
-  //  - addEvent should be addEvents
-  //  - payload schema is ridiculous
-  return options.client.addEvent({events: {events}})
+  return options.client.addEvents({payload: {events}})
     .catch(handleError);
 
 }, options);
