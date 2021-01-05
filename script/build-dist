@@ -14,3 +14,5 @@ for path in "$project_dir"/src/*.ts; do
 
   yarn rollup -c --environment entry:"$filename"
 done
+
+cp -r "$project_dir"/src/api "$project_dir"/dist/api
