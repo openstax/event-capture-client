@@ -14,6 +14,10 @@ type FlushOptions = JobRunnerOptions & {
 const makeFlush = (queue: Queue, options: FlushOptions) => jobRunner(() => {
   const records = queue.splice(0);
 
+  if (records.length === 0) {
+    return Promise.resolve();
+  }
+
   const events = records.map(record => ({data: record()}));
 
   const handleError = (e: any) => {
