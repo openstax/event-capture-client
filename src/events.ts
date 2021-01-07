@@ -1,7 +1,7 @@
 import { AccessedStudyguideV1ToJSON, AccessedStudyguideV1TypeEnum } from "./api/models/AccessedStudyguideV1";
 import { CreatedHighlightV1ToJSON, CreatedHighlightV1TypeEnum } from "./api/models/CreatedHighlightV1";
-import { StartedSessionV1ToJSON, StartedSessionV1TypeEnum } from "./api/models/StartedSessionV1";
 import { NudgedV1ToJSON, NudgedV1TypeEnum } from "./api/models/NudgedV1";
+import { StartedSessionV1ToJSON, StartedSessionV1TypeEnum } from "./api/models/StartedSessionV1";
 import { createEvent } from "./lib/events";
 import { clientClockProvider, createSessionProvider, typeProvider} from "./providers";
 
