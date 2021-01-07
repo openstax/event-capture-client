@@ -2,7 +2,7 @@ this repo initialized from [typescript-starter](https://github.com/bitjson/types
 
 # @openstax/event-capture-client
 
-send event data to api
+send event data to event-capture-api. our event capture api is an event streaming and retention system designed to enable both research based on behavioral user data and dynamic product logic based on event processing.
 
 ## Getting Started
 
