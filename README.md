@@ -78,6 +78,13 @@ const myCapture = createCaptureContext({
    * reporting with a beacon. defualts to global document.
    */
   document: window.document,
+  
+  /*
+   * the swagger stuff is exported from @openstax/event-capture-client/swagger
+   * you could configure your own and pass it in here if you needed to set some
+   * specific configurations. the default value here is a client that has the
+   * fetchApi overridden to set `keepalive: true`
+  client: someSwaggerClient,
 
 });
 
