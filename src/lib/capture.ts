@@ -38,16 +38,16 @@ type Options = Partial<FlushOptions> & {
   document?: Document;
 };
 
-const defaultOptions: Required<Options> = {
+const defaultOptions = {
   client,
   reportError: () => null,
   batchInterval: 60000,
   retryInterval: 60000,
-  document: document,
+  document: typeof document === 'undefined' ? undefined : document,
 };
 
 export const createCaptureContext = (passedOptions: Options = {}) => {
-  const options = {...defaultOptions, ...passedOptions};
+  const {document, ...options} = {...defaultOptions, ...passedOptions};
 
   const queue: Queue = [];
 
@@ -58,11 +58,13 @@ export const createCaptureContext = (passedOptions: Options = {}) => {
     flush.runLater();
   };
 
-  options.document.addEventListener('visibilitychange', () => {
-    if (options.document.visibilityState === 'hidden') {
-      flush.run();
-    }
-  });
+  if (document) {
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') {
+        flush.run();
+      }
+    });
+  }
 
   return capture;
 };
