@@ -1,6 +1,5 @@
 import { EventsApi } from "../api/apis/EventsApi";
-
-import { client } from "./client";
+import { ConfigurationParameters, Configuration } from "../api/runtime";
 import { EventPayload } from "./events";
 import { jobRunner, JobRunnerOptions } from "./jobRunner";
 
@@ -34,12 +33,15 @@ const makeFlush = (queue: Queue, options: FlushOptions) => jobRunner(() => {
 
 }, options);
 
-type Options = Partial<FlushOptions> & {
+type Options = Partial<Omit<FlushOptions, 'client'>> & {
+  clientConfig?: ConfigurationParameters
   document?: Document;
 };
 
+const fetchApi: WindowOrWorkerGlobalScope['fetch'] = (input, init = {}) =>
+  fetch(input, {...init, keepalive: true});
+
 const defaultOptions = {
-  client,
   reportError: () => null,
   batchInterval: 60000,
   retryInterval: 60000,
@@ -47,11 +49,15 @@ const defaultOptions = {
 };
 
 export const createCaptureContext = (passedOptions: Options = {}) => {
-  const {document, ...options} = {...defaultOptions, ...passedOptions};
+  const {document, clientConfig, ...options} = {...defaultOptions, ...passedOptions};
+
+  const client = new EventsApi(new Configuration({
+    fetchApi,
+    ...(clientConfig ? clientConfig : {})
+  }));
 
   const queue: Queue = [];
-
-  const flush = makeFlush(queue, options);
+  const flush = makeFlush(queue, {...options, client});
 
   const capture = (event: Queue[number]) => {
     queue.push(event);
