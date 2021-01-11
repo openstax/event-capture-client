@@ -1,10 +1,12 @@
+import { ClientContainer } from "./clientContainer";
+import { EventsApi } from "../api/apis/EventsApi";
 
 export interface JobRunnerOptions {
   batchInterval: number;
   retryInterval: number;
 }
 
-export const jobRunner = (job: () => Promise<any>, options: JobRunnerOptions) => {
+export const jobRunner = (clientContainer: ClientContainer, job: (client: EventsApi) => Promise<any>, options: JobRunnerOptions) => {
   let timer: number | undefined;
 
   const clearTimer = () => {
@@ -14,7 +16,12 @@ export const jobRunner = (job: () => Promise<any>, options: JobRunnerOptions) =>
 
   const run = () => {
     clearTimer();
-    job().catch(() => runLater(options.retryInterval));
+
+    if (clientContainer.client) {
+      job(clientContainer.client).catch(() => runLater(options.retryInterval));
+    } else {
+      runLater();
+    }
   }
 
   const runLater = (interval: number = options.batchInterval) => {

@@ -54,7 +54,7 @@ import {coolEvent} from '@openstax/event-caputre-client/events';
 capture(coolEvent());
 
 // or you can make your own if you want to specify options
-const myCapture = createCaptureContext({
+const context = createCaptureContext({
 
   /*
    * if fetch returns a TypeError it indicates a connection
@@ -78,6 +78,12 @@ const myCapture = createCaptureContext({
    * reporting with a beacon. defualts to global document.
    */
   document: window.document,
+
+  /*
+   * set to false to delay sending events but still allow collecting them,
+   * complete initialization by calling context.configure(clientConfig)
+   */
+  initialized: true,
   
   /*
    * additional options to pass into the client config. defaults are the production
@@ -89,7 +95,8 @@ const myCapture = createCaptureContext({
 
 });
 
-myCapture(coolEvent());
+context.capture(coolEvent());
+context.configure({basePath: 'staging.event-capture.openstax.org'})
 ```
 
 ## Building Swagger Files

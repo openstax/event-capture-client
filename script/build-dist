@@ -3,6 +3,8 @@ set -e; if [ -n "$DEBUG" ]; then set -x; fi
 
 project_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." >/dev/null 2>&1 && pwd )"
 
+rm -r "$project_dir"/dist
+
 for path in "$project_dir"/src/*.ts; do
   file=$(basename "$path")
 

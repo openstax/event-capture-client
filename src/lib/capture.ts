@@ -1,16 +1,15 @@
-import { EventsApi } from "../api/apis/EventsApi";
-import { ConfigurationParameters, Configuration } from "../api/runtime";
+import { ConfigurationParameters } from "../api/runtime";
 import { EventPayload } from "./events";
 import { jobRunner, JobRunnerOptions } from "./jobRunner";
+import { makeClientContainer, ClientContainer } from "./clientContainer";
 
 type Queue = Array<() => EventPayload>;
 
 type FlushOptions = JobRunnerOptions & {
-  client: EventsApi;
   reportError: (error: any) => void;
 }
 
-const makeFlush = (queue: Queue, options: FlushOptions) => jobRunner(() => {
+const makeFlush = (queue: Queue, clientContainer: ClientContainer, options: FlushOptions) => jobRunner(clientContainer, client => {
   const records = queue.splice(0);
 
   if (records.length === 0) {
@@ -28,36 +27,35 @@ const makeFlush = (queue: Queue, options: FlushOptions) => jobRunner(() => {
     }
   };
 
-  return options.client.addEvents({payload: {events}})
+  return client.addEvents({payload: {events}})
     .catch(handleError);
 
 }, options);
 
 type Options = Partial<Omit<FlushOptions, 'client'>> & {
-  clientConfig?: ConfigurationParameters
+  clientConfig?: ConfigurationParameters;
+  initialized?: boolean;
   document?: Document;
 };
-
-const fetchApi: WindowOrWorkerGlobalScope['fetch'] = (input, init = {}) =>
-  fetch(input, {...init, keepalive: true});
 
 const defaultOptions = {
   reportError: () => null,
   batchInterval: 60000,
   retryInterval: 60000,
+  initialized: true,
   document: typeof document === 'undefined' ? undefined : document,
 };
 
 export const createCaptureContext = (passedOptions: Options = {}) => {
   const {document, clientConfig, ...options} = {...defaultOptions, ...passedOptions};
+  const clientContainer = makeClientContainer();
 
-  const client = new EventsApi(new Configuration({
-    fetchApi,
-    ...(clientConfig ? clientConfig : {})
-  }));
+  if (options.initialized) {
+    clientContainer.setConfig(clientConfig);
+  }
 
   const queue: Queue = [];
-  const flush = makeFlush(queue, {...options, client});
+  const flush = makeFlush(queue, clientContainer, options);
 
   const capture = (event: Queue[number]) => {
     queue.push(event);
@@ -72,6 +70,6 @@ export const createCaptureContext = (passedOptions: Options = {}) => {
     });
   }
 
-  return capture;
+  return {capture, configure: clientContainer.setConfig};
 };
 
