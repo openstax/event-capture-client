@@ -3,13 +3,7 @@ set -e; if [ -n "$DEBUG" ]; then set -x; fi
 
 project_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." >/dev/null 2>&1 && pwd )"
 
-for path in "$project_dir"/dist/*; do
-  if [[ "$(basename "$path")" == "package.json" ]]; then
-    continue
-  fi
-
-  rm -r "$path"
-done
+git clean -dfx dist
 
 for path in "$project_dir"/src/*.ts; do
   file=$(basename "$path")
