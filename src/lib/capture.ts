@@ -1,7 +1,8 @@
 import { ConfigurationParameters } from "../api/runtime";
+
+import { ClientContainer, makeClientContainer } from "./clientContainer";
 import { EventPayload } from "./events";
 import { jobRunner, JobRunnerOptions } from "./jobRunner";
-import { makeClientContainer, ClientContainer } from "./clientContainer";
 
 type Queue = Array<() => EventPayload>;
 

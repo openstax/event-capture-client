@@ -1,5 +1,6 @@
-import { ClientContainer } from "./clientContainer";
 import { EventsApi } from "../api/apis/EventsApi";
+
+import { ClientContainer } from "./clientContainer";
 
 export interface JobRunnerOptions {
   batchInterval: number;

@@ -17,6 +17,7 @@
     "execa",
     "exponentiate",
     "globby",
+    "keepalive",
     "libauth",
     "mkdir",
     "prettierignore",

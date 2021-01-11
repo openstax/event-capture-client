@@ -1,5 +1,5 @@
 import { EventsApi } from "../api/apis/EventsApi";
-import { ConfigurationParameters, Configuration } from "../api/runtime";
+import { Configuration, ConfigurationParameters } from "../api/runtime";
 
 export interface ClientContainer {
   setConfig: (config: ConfigurationParameters | undefined) => void;
