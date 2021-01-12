@@ -1,8 +1,11 @@
 {
   "name": "@openstax/event-capture-client",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "send event data to api",
   "repository": "https://github.com/TomWoodward/@openstax/event-capture-client",
+  "main": "index.js",
+  "module": "index.es.js",
+  "typings": "index.d.ts",
   "license": "MIT",
   "keywords": [],
   "scripts": {
@@ -21,8 +24,7 @@
     "cov:send": "run-s cov:lcov && codecov",
     "cov:check": "nyc report && nyc check-coverage --lines 100 --functions 100 --branches 100",
     "version": "standard-version",
-    "reset-hard": "git clean -dfx && git reset --hard && yarn",
-    "prepare-release": "run-s reset-hard test cov:check doc:html version doc:publish"
+    "prepare-release": "run-s test version build"
   },
   "engines": {
     "node": ">=10"
