@@ -4,45 +4,9 @@ this repo initialized from [typescript-starter](https://github.com/bitjson/types
 
 send event data to event-capture-api. our event capture api is an event streaming and retention system designed to enable both research based on behavioral user data and dynamic product logic based on event processing.
 
-## Getting Started
-
-install [nvm](https://github.com/creationix/nvm#installation)
-
-```bash
-# use the right version of node
-nvm install
-
-# install yarn, skip if you have it already
-npm install -g yarn
-
-# install dependencies
-yarn
-
-# build swagger files
-./script/build-swagger-client.bash
+## Installation
 ```
-
-## Development
-
-```bash
-# runs all tests (lint, spellcheck, unit)
-yarn test
-
-# fixes some linting issues automatically
-yarn fix
-
-# run the build, generate output files
-yarn build
-
-# rebuild when files change
-yarn watch:build
-
-# run tests, generate coverage reports, open the html report in a browser
-yarn cov
-
-# just regenerate the html report
-yarn cov:html
-
+yarn add @openstax/event-capture-client
 ```
 
 ## Dispatching Events
@@ -72,7 +36,7 @@ const context = createCaptureContext({
    * ms, defaults 1m
    */
   retryInterval: 60000,
-  
+
   /*
    * document object, used to detect browser close and attempt
    * reporting with a beacon. defaults to global document.
@@ -84,7 +48,7 @@ const context = createCaptureContext({
    * complete initialization by calling context.configure(clientConfig)
    */
   initialized: true,
-  
+
   /*
    * additional options to pass into the client config. defaults are the production
    * base url and a fetchApi with `keepalive: true`
@@ -97,6 +61,48 @@ const context = createCaptureContext({
 
 context.capture(coolEvent());
 context.configure({basePath: 'staging.event-capture.openstax.org'})
+```
+
+# Development
+
+## Getting Started
+
+install [nvm](https://github.com/creationix/nvm#installation)
+
+```bash
+# use the right version of node
+nvm install
+
+# install yarn, skip if you have it already
+npm install -g yarn
+
+# install dependencies
+yarn
+
+# build swagger files
+./script/build-swagger-client.bash
+```
+
+## Workflow Scripts
+
+```bash
+# runs all tests (lint, spellcheck, unit)
+yarn test
+
+# fixes some linting issues automatically
+yarn fix
+
+# run the build, generate output files
+yarn build
+
+# rebuild when files change
+yarn watch:build
+
+# run tests, generate coverage reports, open the html report in a browser
+yarn cov
+
+# just regenerate the html report
+yarn cov:html
 ```
 
 ## Building Swagger Files
