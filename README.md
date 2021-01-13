@@ -134,4 +134,12 @@ export const clientClockProvider = () => {
 the outer function is invoked when the factory is first called, the resulting function is stored in the event until a batch of events is ready to upload. In the event that an upload needs to be retried, the inner function will be invoked for each try, but the outer function is only ever invoked once. another example of a data provider is one that augments each event with an index indicating the order it occurred in the client. you can see all the pre-defined data providers [here](/src/providers.ts)
 
 ## Custom Events
-The `createEvent` helper is exposed to allow creating events that are not supported explicitly by the library. Make sure that if you are including session data on your custom event that you use the same `sessionProvider` as any pre-defined events you're also using. 
+The `createEvent` helper is exposed to allow creating events that are not supported explicitly by the library. Make sure that if you are including session data on your custom event that you use the same `sessionProvider` as any pre-defined events you're also using.
+
+## Release Library
+
+```
+yarn prepare-release
+yarn publish dist --non-interactive
+```
+

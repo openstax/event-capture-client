@@ -18,3 +18,4 @@ for path in "$project_dir"/src/*.ts; do
 done
 
 cp -r "$project_dir"/src/api "$project_dir"/dist/api
+cp package.json dist/
