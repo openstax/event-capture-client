@@ -62,12 +62,12 @@ const context = createCaptureContext({
    * will get passed into here
    */
   reportError: sentry.captureException,
-  
+
   /*
    * ms, defaults 1m
    */
   batchInterval: 60000,
-    
+
   /*
    * ms, defaults 1m
    */
