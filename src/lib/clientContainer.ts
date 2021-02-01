@@ -2,7 +2,7 @@ import { EventsApi } from "../api/apis/EventsApi";
 import { Configuration, ConfigurationParameters } from "../api/runtime";
 
 export interface ClientContainer {
-  setConfig: (config: ConfigurationParameters | undefined) => void;
+  setConfig: (config?: ConfigurationParameters | undefined) => void;
   client: EventsApi | undefined;
 }
 
