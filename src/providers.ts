@@ -19,3 +19,12 @@ export const createSessionProvider = (sessionUuid: string = uuid(), orderState: 
 }
 
 export const typeProvider = <T extends any>(type: T) => () => () => ({type});
+
+
+export const referrerProvider = (doc: Document = document) => () => () => ({
+  referrer: doc.referrer,
+});
+
+export const sourceUriProvider = (win: Window = window) => () => () => ({
+  sourceUri: win.location.toString()
+});
