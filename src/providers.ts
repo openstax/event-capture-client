@@ -21,10 +21,18 @@ export const createSessionProvider = (sessionUuid: string = uuid(), orderState: 
 export const typeProvider = <T extends any>(type: T) => () => () => ({type});
 
 
-export const referrerProvider = (doc: Document = document) => () => () => ({
-  referrer: doc.referrer,
-});
+export const referrerProvider = (documentInput?: Document) => {
+  const doc = documentInput || (typeof document === 'undefined' ? undefined : document);
 
-export const sourceUriProvider = (win: Window = window) => () => () => ({
-  sourceUri: win.location.toString()
-});
+  return (params?: {referrer?: string}) => () => ({
+    referrer: (params && params.referrer) || (doc ? doc.referrer : ''),
+  });
+};
+
+export const sourceUriProvider = (windowInput?: Window) => {
+  const win = windowInput || (typeof window === 'undefined' ? undefined : window);
+
+  return (params?: {sourceUri?: string}) => () => ({
+    sourceUri: (params && params.sourceUri) || (win ? win.location.toString() : ''),
+  });
+};

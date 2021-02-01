@@ -1,6 +1,6 @@
 import test from 'ava';
 
-import { clientClockProvider, createSessionProvider } from "./providers";
+import { clientClockProvider, createSessionProvider, sourceUriProvider } from "./providers";
 
 test('client clock provides dates', (t) => {
   const payload = clientClockProvider()();
@@ -64,4 +64,43 @@ test('session uuid does not change', (t) => {
   t.is(provider()().sessionUuid, uuid);
   t.is(provider()().sessionUuid, uuid);
   t.is(provider()().sessionUuid, uuid);
+});
+
+test('sourceUri provider defaults to empty string', (t) => {
+  const payload = sourceUriProvider()()();
+  t.is(payload.sourceUri, '');
+});
+
+test('sourceUri provider uses global window', (t) => {
+  const fakeWindow = {
+    location: {
+      toString: () => 'some string'
+    }
+  }
+
+  //@ts-ignore
+  global.window = fakeWindow;
+
+  const payload = sourceUriProvider()()();
+  t.is(payload.sourceUri, 'some string');
+});
+
+test('sourceUri provider uses window passed into base provider', (t) => {
+  const fakeWindow = {
+    location: {
+      toString: () => 'some string'
+    }
+  }
+  const payload = sourceUriProvider(fakeWindow as Window)()();
+  t.is(payload.sourceUri, 'some string');
+});
+
+test('sourceUri provider uses uri passed into the initializer', (t) => {
+  const fakeWindow = {
+    location: {
+      toString: () => 'some string'
+    }
+  }
+  const payload = sourceUriProvider(fakeWindow as Window)({sourceUri: 'other string'})();
+  t.is(payload.sourceUri, 'other string');
 });
