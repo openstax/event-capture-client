@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.1](https://github.com///compare/v1.1.0...v1.1.1) (2021-02-01)
+
+
+### Bug Fixes
+
+* allow omitting the config argument of setConfig to get the defaults ([#3](https://github.com//undefined/issues/3)) ([7932dc1](https://github.com///commit/7932dc1ce47a65ad1fc04293f6498b4b7ecd658d))
+
 ## [1.1.0](https://github.com///compare/v1.0.3...v1.1.0) (2021-02-01)
 
 
