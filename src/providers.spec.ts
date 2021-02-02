@@ -1,6 +1,6 @@
 import test from 'ava';
 
-import { clientClockProvider, createSessionProvider, sourceUriProvider } from "./providers";
+import { clientClockProvider, createSessionProvider, referrerProvider, sourceUriProvider } from "./providers";
 
 test('client clock provides dates', (t) => {
   const payload = clientClockProvider()();
@@ -66,6 +66,47 @@ test('session uuid does not change', (t) => {
   t.is(provider()().sessionUuid, uuid);
 });
 
+test('referrerProvider provider defaults to empty string', (t) => {
+  const payload = referrerProvider()()();
+  t.is(payload.referrer, '');
+});
+
+test('referrerProvider provider uses global document', (t) => {
+  const fakeDocument = {
+    referrer: 'some string',
+  }
+
+  //@ts-ignore
+  global.document = fakeDocument;
+
+  const payload = referrerProvider()()();
+  t.is(payload.referrer, 'some string');
+});
+
+test('referrerProvider provider uses document passed into base provider', (t) => {
+  const fakeDocument = {
+    referrer: 'some string',
+  }
+  const payload = referrerProvider(fakeDocument as Document)()();
+  t.is(payload.referrer, 'some string');
+});
+
+test('referrerProvider provider uses referrer passed into the initializer', (t) => {
+  const fakeDocument = {
+    referrer: 'some string',
+  }
+  const payload = referrerProvider(fakeDocument as Document)({referrer: 'other string'})();
+  t.is(payload.referrer, 'other string');
+});
+
+test('referrerProvider provider uses referrer passed into the initializer even if it is an empty string', (t) => {
+  const fakeDocument = {
+    referrer: 'some referrer',
+  }
+  const payload = referrerProvider(fakeDocument as Document)({referrer: ''})();
+  t.is(payload.referrer, '');
+});
+
 test('sourceUri provider defaults to empty string', (t) => {
   const payload = sourceUriProvider()()();
   t.is(payload.sourceUri, '');
@@ -103,4 +144,14 @@ test('sourceUri provider uses uri passed into the initializer', (t) => {
   }
   const payload = sourceUriProvider(fakeWindow as Window)({sourceUri: 'other string'})();
   t.is(payload.sourceUri, 'other string');
+});
+
+test('sourceUri provider uses uri passed into the initializer even if it is an empty string', (t) => {
+  const fakeWindow = {
+    location: {
+      toString: () => 'some string'
+    }
+  }
+  const payload = sourceUriProvider(fakeWindow as Window)({sourceUri: ''})();
+  t.is(payload.sourceUri, '');
 });
