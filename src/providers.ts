@@ -25,7 +25,7 @@ export const referrerProvider = (documentInput?: Document) => {
   const doc = documentInput || (typeof document === 'undefined' ? undefined : document);
 
   return (params?: {referrer?: string}) => () => ({
-    referrer: (params && params.referrer) || (doc ? doc.referrer : ''),
+    referrer: (params && params.referrer) ?? (doc ? doc.referrer : ''),
   });
 };
 
@@ -33,6 +33,6 @@ export const sourceUriProvider = (windowInput?: Window) => {
   const win = windowInput || (typeof window === 'undefined' ? undefined : window);
 
   return (params?: {sourceUri?: string}) => () => ({
-    sourceUri: (params && params.sourceUri) || (win ? win.location.toString() : ''),
+    sourceUri: (params && params.sourceUri) ?? (win ? win.location.toString() : ''),
   });
 };
