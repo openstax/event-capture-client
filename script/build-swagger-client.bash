@@ -23,7 +23,7 @@ temp_dir=$(mktemp -d -t ci-XXXXXXXXXX)
 echo "wrangling swagger file: $temp_dir/swagger.json" > /dev/stderr;
 
 curl -s "$protocol://$api_host$swagger_path" \
-  | docker run --rm -i stedolan/jq --arg host "$api_host" --arg protocol "$protocol" '. + {host: $host, schemes: ["$protocol"]}' \
+  | docker run --rm -i stedolan/jq --arg host "$api_host" --arg protocol "$protocol" '. + {host: $host, schemes: [$protocol]}' \
   > "$temp_dir/swagger.json"
 
 echo "building swagger into: $temp_dir/src" > /dev/stderr;
