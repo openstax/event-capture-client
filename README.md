@@ -21,6 +21,13 @@ capture(coolEvent());
 const context = createCaptureContext({
 
   /*
+   * if set to `false` or a function returning `false`
+   * events will still be queued but they will not be
+   * flushed to the backend
+   */
+  sendingEnabled: false,
+
+  /*
    * if fetch returns a TypeError it indicates a connection
    * error and the payload will be retried, anything else
    * will get passed into here

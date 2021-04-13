@@ -40,6 +40,7 @@ type Options = Partial<Omit<FlushOptions, 'client'>> & {
 };
 
 const defaultOptions = {
+  sendingEnabled: true,
   reportError: () => null,
   batchInterval: 60000,
   retryInterval: 60000,
@@ -71,6 +72,10 @@ export const createCaptureContext = (passedOptions: Options = {}) => {
     });
   }
 
-  return {capture, configure: clientContainer.setConfig};
+  return {
+    capture,
+    configure: clientContainer.setConfig,
+    queue: queue as Readonly<Queue>
+  };
 };
 
