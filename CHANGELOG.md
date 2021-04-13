@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com///compare/v1.1.3...v1.2.0) (2021-04-13)
+
+
+### Features
+
+* add option for disabling event sending while still queueing ([0b89069](https://github.com///commit/0b890698abeb4e0c947b487c9578006be4d97d6d))
+
 ### [1.1.3](https://github.com///compare/v1.1.2...v1.1.3) (2021-02-04)
 
 
