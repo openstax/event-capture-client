@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.2](https://github.com///compare/v1.2.1...v1.2.2) (2021-07-21)
+
+
+### Bug Fixes
+
+* remove preconfigured capture its reporting things ([0d3c045](https://github.com///commit/0d3c045cb603a30e768f77501e67245f039bed59))
+
 ### [1.2.1](https://github.com///compare/v1.2.0...v1.2.1) (2021-07-12)
 
 ## [1.2.0](https://github.com///compare/v1.1.3...v1.2.0) (2021-04-13)
