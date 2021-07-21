@@ -11,13 +11,9 @@ yarn add @openstax/event-capture-client
 
 ## Dispatching Events
 ```typescript
-import {capture, createCaptureContext} from '@openstax/event-capture-client/capture';
+import {createCaptureContext} from '@openstax/event-capture-client/capture';
 import {coolEvent} from '@openstax/event-capture-client/events';
 
-// this `capture` client is pre-configured
-capture(coolEvent());
-
-// or you can make your own if you want to specify options
 const context = createCaptureContext({
 
   /*
