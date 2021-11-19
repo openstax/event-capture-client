@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.3](https://github.com///compare/v1.2.2...v1.2.3) (2021-11-19)
+
+
+### Bug Fixes
+
+* include credentials ([649e492](https://github.com///commit/649e4928646d54e8cd6d63520133e9860295e812))
+
 ### [1.2.2](https://github.com///compare/v1.2.1...v1.2.2) (2021-07-21)
 
 
