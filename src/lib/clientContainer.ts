@@ -7,7 +7,7 @@ export interface ClientContainer {
 }
 
 const fetchApi: WindowOrWorkerGlobalScope['fetch'] = (input, init = {}) =>
-  fetch(input, {...init, keepalive: true});
+  fetch(input, {...init, keepalive: true, credentials: 'include'});
 
 export const makeClientContainer = () => {
 
