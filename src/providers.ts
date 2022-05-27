@@ -9,6 +9,23 @@ export const clientClockProvider = () => {
   });
 }
 
+export const serviceWorkerStateProvider = (windowInput?: Window) => {
+  const win = windowInput || (typeof window === 'undefined' ? undefined : window);
+
+  return () => (): {serviceWorker: 'unsupported' | 'inactive' | 'active'} => {
+    if (!win || !('navigator' in win) || !('serviceWorker' in win.navigator)) {
+      return {serviceWorker: 'unsupported'};
+    }
+
+    return {
+      serviceWorker: win.navigator.serviceWorker.controller
+        && win.navigator.serviceWorker.controller.state === 'activated'
+        ? 'active'
+        : 'inactive'
+    }
+  }
+};
+
 export const createSessionProvider = (sessionUuid: string = uuid(), orderState: number = 0) => () => {
   const sessionOrder = orderState++;
 
