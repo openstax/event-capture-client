@@ -3,7 +3,7 @@ import { CreatedHighlightV1ToJSON, CreatedHighlightV1TypeEnum } from "./api/mode
 import { NudgedV1ToJSON, NudgedV1TypeEnum } from "./api/models/NudgedV1";
 import { StartedSessionV1ToJSON, StartedSessionV1TypeEnum } from "./api/models/StartedSessionV1";
 import { createEvent } from "./lib/events";
-import { clientClockProvider, createSessionProvider, referrerProvider, sourceUriProvider, typeProvider } from "./providers";
+import { clientClockProvider, createSessionProvider, referrerProvider, serviceWorkerStateProvider, sourceUriProvider, typeProvider } from "./providers";
 
 export { createEvent };
 
@@ -14,7 +14,8 @@ export const sessionStarted = createEvent(StartedSessionV1ToJSON,
   clientClockProvider,
   referrerProvider(),
   sourceUriProvider(),
-  sessionProvider
+  sessionProvider,
+  serviceWorkerStateProvider
 );
 
 export const accessedStudyguide = createEvent(AccessedStudyguideV1ToJSON,

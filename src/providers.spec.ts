@@ -1,6 +1,13 @@
 import test from 'ava';
 
-import { clientClockProvider, createSessionProvider, referrerProvider, sourceUriProvider } from "./providers";
+import { clientClockProvider, createSessionProvider, referrerProvider, serviceWorkerStateProvider, sourceUriProvider } from "./providers";
+
+test.afterEach(() => {
+  //@ts-ignore
+  delete global.window;
+  //@ts-ignore
+  delete global.document;
+});
 
 test('client clock provides dates', (t) => {
   const payload = clientClockProvider()();
@@ -66,12 +73,12 @@ test('session uuid does not change', (t) => {
   t.is(provider()().sessionUuid, uuid);
 });
 
-test('referrerProvider provider defaults to empty string', (t) => {
+test.serial('referrerProvider provider defaults to empty string', (t) => {
   const payload = referrerProvider()()();
   t.is(payload.referrer, '');
 });
 
-test('referrerProvider provider uses global document', (t) => {
+test.serial('referrerProvider provider uses global document', (t) => {
   const fakeDocument = {
     referrer: 'some string',
   }
@@ -107,12 +114,12 @@ test('referrerProvider provider uses referrer passed into the initializer even i
   t.is(payload.referrer, '');
 });
 
-test('sourceUri provider defaults to empty string', (t) => {
+test.serial('sourceUri provider defaults to empty string', (t) => {
   const payload = sourceUriProvider()()();
   t.is(payload.sourceUri, '');
 });
 
-test('sourceUri provider uses global window', (t) => {
+test.serial('sourceUri provider uses global window', (t) => {
   const fakeWindow = {
     location: {
       toString: () => 'some string'
@@ -154,4 +161,47 @@ test('sourceUri provider uses uri passed into the initializer even if it is an e
   }
   const payload = sourceUriProvider(fakeWindow as Window)({sourceUri: ''})();
   t.is(payload.sourceUri, '');
+});
+
+test.serial('serviceWorkerStateProvider returns unsupported without window', (t) => {
+  const payload = serviceWorkerStateProvider()()();
+  t.is(payload.serviceWorker, 'unsupported');
+});
+
+test('serviceWorkerStateProvider returns unsupported without navigator', (t) => {
+  const fakeWindow = {}
+  const payload = serviceWorkerStateProvider(fakeWindow as Window)()();
+  t.is(payload.serviceWorker, 'unsupported');
+});
+
+test('serviceWorkerStateProvider returns unsupported without navigator.serviceWorker', (t) => {
+  const fakeWindow = {
+    navigator: {}
+  }
+  const payload = serviceWorkerStateProvider(fakeWindow as Window)()();
+  t.is(payload.serviceWorker, 'unsupported');
+});
+
+test('serviceWorkerStateProvider returns inactive without navigator.serviceWorker.controller', (t) => {
+  const fakeWindow = {
+    navigator: {serviceWorker: {}}
+  }
+  const payload = serviceWorkerStateProvider(fakeWindow as Window)()();
+  t.is(payload.serviceWorker, 'inactive');
+});
+
+test('serviceWorkerStateProvider returns inactive when navigator.serviceWorker.controller.state is not activated', (t) => {
+  const fakeWindow = {
+    navigator: {serviceWorker: {controller: {state: 'installing'}}}
+  }
+  const payload = serviceWorkerStateProvider(fakeWindow as Window)()();
+  t.is(payload.serviceWorker, 'inactive');
+});
+
+test('serviceWorkerStateProvider returns active when navigator.serviceWorker.controller.state is activated', (t) => {
+  const fakeWindow = {
+    navigator: {serviceWorker: {controller: {state: 'activated'}}}
+  }
+  const payload = serviceWorkerStateProvider(fakeWindow as Window)()();
+  t.is(payload.serviceWorker, 'active');
 });
