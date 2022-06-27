@@ -15,7 +15,7 @@ export const sessionStarted = createEvent(StartedSessionV1ToJSON,
   referrerProvider(),
   sourceUriProvider(),
   sessionProvider,
-  serviceWorkerStateProvider
+  serviceWorkerStateProvider()
 );
 
 export const accessedStudyguide = createEvent(AccessedStudyguideV1ToJSON,
