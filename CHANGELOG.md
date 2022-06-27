@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com///compare/v1.2.3...v1.3.0) (2022-06-27)
+
+
+### Features
+
+* add new fields to session ([#8](https://github.com//undefined/issues/8)) ([8865834](https://github.com///commit/886583448e72a58d902dff50a19262d009bd0e60))
+
 ### [1.2.4](https://github.com///compare/v1.2.3...v1.2.4) (2022-05-27)
 
 ### [1.2.3](https://github.com///compare/v1.2.2...v1.2.3) (2021-11-19)
