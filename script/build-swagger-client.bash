@@ -28,7 +28,10 @@ curl -s "$protocol://$api_host$swagger_path" \
 
 echo "building swagger into: $temp_dir/src" > /dev/stderr;
 
-docker run --rm -v "$temp_dir:/shared" openapitools/openapi-generator-cli generate \
+mkdir -p "$temp_dir/src"
+
+docker run --rm -v "$temp_dir:/shared" openapitools/openapi-generator-cli:v5.2.0 generate \
+  --additional-properties=typescriptThreePlus=true \
   -i /shared/swagger.json \
   -g typescript-fetch \
   -o /shared/src
@@ -37,7 +40,7 @@ echo "compiling typescript" > /dev/stderr;
 cd "$temp_dir/src"
 
 # swagger ts breaks on more recent version
-yarn add typescript@3.5
+yarn add typescript@4.2
 yarn tsc --module commonjs --target es6 --lib es2015,dom --outDir dist --declaration index.ts
 
 rm -rf "$project_dir/src/api"
