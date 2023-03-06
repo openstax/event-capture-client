@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com///compare/v1.3.0...v1.5.0) (2023-03-01)
+
+
+### Features
+
+* add stateChange event factory ([4ef700c](https://github.com///commit/4ef700c1baed50a0766083d4c14717de4ae90e08))
+
 ### [1.4.2](https://github.com///compare/v1.4.1...v1.4.2) (2022-11-18)
 
 ### [1.4.1](https://github.com///compare/v1.3.0...v1.4.1) (2022-11-18)
