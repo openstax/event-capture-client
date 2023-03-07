@@ -5,7 +5,7 @@ import { InteractedElementV1ToJSON, InteractedElementV1TypeEnum } from "./api/mo
 import { NudgedV1ToJSON, NudgedV1TypeEnum } from "./api/models/NudgedV1";
 import { StartedSessionV1ToJSON, StartedSessionV1TypeEnum } from "./api/models/StartedSessionV1";
 import { createEvent } from "./lib/events";
-import { clientClockProvider, createSessionProvider, referrerProvider, serviceWorkerStateProvider, sourceUriProvider, typeProvider } from "./providers";
+import { clientClockProvider, createSessionProvider, referrerProvider, serviceWorkerStateProvider, sourceUriProvider, stateChangePrevious, typeProvider } from "./providers";
 
 export { createEvent };
 
@@ -50,7 +50,10 @@ export const interacted = createEvent(InteractedElementV1ToJSON,
 
 export const stateChange = createEvent(ChangedStateV1ToJSON,
   typeProvider(ChangedStateV1TypeEnum.OrgOpenstaxEcChangedStateV1),
+  stateChangePrevious(),
   clientClockProvider,
   sourceUriProvider(),
   sessionProvider
 );
+
+stateChange({});

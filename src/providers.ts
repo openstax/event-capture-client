@@ -53,3 +53,13 @@ export const sourceUriProvider = (windowInput?: Window) => {
     sourceUri: (params && params.sourceUri) ?? (win ? win.location.toString() : ''),
   });
 };
+
+export const stateChangePrevious = () => {
+  const cache: {[ns: string]: string} = {}
+
+  return (params: {stateType: string; current: string;}) => {
+    const previous = cache[params.stateType] || null;
+    cache[params.stateType] = params.current;
+    return () => ({previous})
+  };
+};
