@@ -55,5 +55,3 @@ export const stateChange = createEvent(ChangedStateV1ToJSON,
   sourceUriProvider(),
   sessionProvider
 );
-
-stateChange({});
