@@ -1,6 +1,6 @@
 import test from 'ava';
 
-import { clientClockProvider, createSessionProvider, referrerProvider, serviceWorkerStateProvider, sourceUriProvider } from "./providers";
+import { clientClockProvider, createSessionProvider, referrerProvider, serviceWorkerStateProvider, sourceUriProvider, stateChangePrevious } from "./providers";
 
 test.afterEach(() => {
   //@ts-ignore
@@ -204,4 +204,32 @@ test('serviceWorkerStateProvider returns active when navigator.serviceWorker.con
   }
   const payload = serviceWorkerStateProvider(fakeWindow as Window)()();
   t.is(payload.serviceWorker, 'active');
+});
+
+test('stateChangePrevious provides previous', (t) => {
+  const provider = stateChangePrevious();
+
+  t.deepEqual(provider({stateType: 'type1', current: 'someValue'})(), {
+    previous: null,
+  });
+  t.deepEqual(provider({stateType: 'type1', current: 'someOtherValue'})(), {
+    previous: 'someValue',
+  });
+});
+
+test('stateChangePrevious provides namespaced previous', (t) => {
+  const provider = stateChangePrevious();
+
+  t.deepEqual(provider({stateType: 'type1', current: 'someValue1'})(), {
+    previous: null,
+  });
+  t.deepEqual(provider({stateType: 'type2', current: 'someValue2'})(), {
+    previous: null,
+  });
+  t.deepEqual(provider({stateType: 'type2', current: 'someOtherValue2'})(), {
+    previous: 'someValue2',
+  });
+  t.deepEqual(provider({stateType: 'type1', current: 'someOtherValue1'})(), {
+    previous: 'someValue1',
+  });
 });
