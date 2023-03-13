@@ -58,7 +58,7 @@ export const stateChangePrevious = () => {
   const cache: {[ns: string]: string} = {}
 
   return (params: {stateType: string; current: string;}) => {
-    const previous = cache[params.stateType] || null;
+    const previous = cache[params.stateType] || 'none';
     cache[params.stateType] = params.current;
     return () => ({previous})
   };

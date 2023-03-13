@@ -210,7 +210,7 @@ test('stateChangePrevious provides previous', (t) => {
   const provider = stateChangePrevious();
 
   t.deepEqual(provider({stateType: 'type1', current: 'someValue'})(), {
-    previous: null,
+    previous: 'none',
   });
   t.deepEqual(provider({stateType: 'type1', current: 'someOtherValue'})(), {
     previous: 'someValue',
@@ -221,10 +221,10 @@ test('stateChangePrevious provides namespaced previous', (t) => {
   const provider = stateChangePrevious();
 
   t.deepEqual(provider({stateType: 'type1', current: 'someValue1'})(), {
-    previous: null,
+    previous: 'none',
   });
   t.deepEqual(provider({stateType: 'type2', current: 'someValue2'})(), {
-    previous: null,
+    previous: 'none',
   });
   t.deepEqual(provider({stateType: 'type2', current: 'someOtherValue2'})(), {
     previous: 'someValue2',
