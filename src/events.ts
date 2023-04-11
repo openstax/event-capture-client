@@ -1,6 +1,6 @@
 import { AccessedStudyguideV1ToJSON, AccessedStudyguideV1TypeEnum } from "./api/models/AccessedStudyguideV1";
 import { ChangedStateV1ToJSON, ChangedStateV1TypeEnum } from "./api/models/ChangedStateV1";
-import { CreatedHighlightV1ToJSON, CreatedHighlightV1TypeEnum } from "./api/models/CreatedHighlightV1";
+import { CreatedHighlightV2ToJSON, CreatedHighlightV2TypeEnum } from "./api/models/CreatedHighlightV2";
 import { InteractedElementV1ToJSON, InteractedElementV1TypeEnum } from "./api/models/InteractedElementV1";
 import { NudgedV1ToJSON, NudgedV1TypeEnum } from "./api/models/NudgedV1";
 import { StartedSessionV1ToJSON, StartedSessionV1TypeEnum } from "./api/models/StartedSessionV1";
@@ -27,8 +27,8 @@ export const accessedStudyguide = createEvent(AccessedStudyguideV1ToJSON,
   sessionProvider
 );
 
-export const createdHighlight = createEvent(CreatedHighlightV1ToJSON,
-  typeProvider(CreatedHighlightV1TypeEnum.OrgOpenstaxEcCreatedHighlightV1),
+export const createdHighlight = createEvent(CreatedHighlightV2ToJSON,
+  typeProvider(CreatedHighlightV2TypeEnum.OrgOpenstaxEcCreatedHighlightV2),
   clientClockProvider,
   sourceUriProvider(),
   sessionProvider
