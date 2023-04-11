@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Features
 
-* added sourceMetadata to most events ([68bfa76](https://github.com/commit/68bfa7617e10acc87956b3f4838eb1f4c7d38cde))
+* added sourceMetadata to most events ([68bfa76](https://github.com/openstax/event-capture-client/commit/68bfa7617e10acc87956b3f4838eb1f4c7d38cde))
 
 ### [1.5.2](https://github.com///compare/v1.5.1...v1.5.2) (2023-03-13)
 
