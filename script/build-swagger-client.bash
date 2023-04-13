@@ -22,7 +22,7 @@ temp_dir=$(mktemp -d -t ci-XXXXXXXXXX)
 
 if [ -n ${API_HOST} ]
 then
-  echo "fetching: $protocol://$api_host$swagger_path"
+  echo "fetching: $protocol://$api_host$swagger_path" > /dev/stderr;
   curl -s "$protocol://$api_host$swagger_path" \
     | docker run --rm -i stedolan/jq --arg host "$api_host" --arg protocol "$protocol" '. + {host: $host, schemes: [$protocol]}' \
     > "$project_dir/swagger.json"
