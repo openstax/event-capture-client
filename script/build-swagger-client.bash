@@ -11,7 +11,7 @@ if [ -z "$(which yarn)" ]; then
   exit 1;
 fi
 
-api_host=${API_HOST:-"event-capture.openstax.org"}
+api_host=${API_HOST}
 swagger_path="/api/v0/swagger.json"
 
 secure=${SECURE:-"true"}
@@ -20,11 +20,15 @@ protocol=$(test "$secure" = "true" && echo "https" || echo "http")
 project_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." >/dev/null 2>&1 && pwd )"
 temp_dir=$(mktemp -d -t ci-XXXXXXXXXX)
 
-echo "wrangling swagger file: $project_dir/swagger.json" > /dev/stderr;
-
-curl -s "$protocol://$api_host$swagger_path" \
-  | docker run --rm -i stedolan/jq --arg host "$api_host" --arg protocol "$protocol" '. + {host: $host, schemes: [$protocol]}' \
-  > "$project_dir/swagger.json"
+if [ -n ${API_HOST} ]
+then
+  echo "fetching: $protocol://$api_host$swagger_path" > /dev/stderr;
+  curl -s "$protocol://$api_host$swagger_path" \
+    | docker run --rm -i stedolan/jq --arg host "$api_host" --arg protocol "$protocol" '. + {host: $host, schemes: [$protocol]}' \
+    > "$project_dir/swagger.json"
+else
+  echo "Using existing swagger file: $project_dir/swagger.json" > /dev/stderr;
+fi
 
 echo "building swagger into: $temp_dir/src" > /dev/stderr;
 
