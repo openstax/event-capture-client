@@ -20,7 +20,7 @@ protocol=$(test "$secure" = "true" && echo "https" || echo "http")
 project_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." >/dev/null 2>&1 && pwd )"
 temp_dir=$(mktemp -d -t ci-XXXXXXXXXX)
 
-if [ -n ${API_HOST} ]
+if [ -n "${API_HOST}" ]
 then
   echo "fetching: $protocol://$api_host$swagger_path" > /dev/stderr;
   curl -s "$protocol://$api_host$swagger_path" \
