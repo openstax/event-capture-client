@@ -2,7 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-## [2.0.0](https://github.com/compare/v2.0.0...v1.5.2) (2023-04-11)
+## [2.0.1](https://github.com/openstax/event-capture-client/compare/v2.0.1...v2.0.0) (2023-04-18)
+
+
+### Bug Fixes
+
+* removed non-existent required "annotation" property from CreateHighlightV2 ([e4e75b4](https://github.com/openstax/event-capture-client/commit/e4e75b4a003508b7ac56ed0505b79302d0bf82d7))
+
+## [2.0.0](https://github.com/openstax/event-capture-client/compare/v2.0.0...v1.5.2) (2023-04-11)
 
 
 ### Features
