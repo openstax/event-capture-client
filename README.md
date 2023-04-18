@@ -110,7 +110,7 @@ yarn cov:html
 
 ## Building Swagger Files
 ```bash
-# use default settings reading from production event capture api
+# use default settings reading from swagger.json in root of repo
 ./script/build-swagger-client.bash
 
 # using an alternative api server, with the option to use http instead of https
@@ -151,4 +151,3 @@ The `createEvent` helper is exposed to allow creating events that are not suppor
 yarn prepare-release
 yarn publish dist --non-interactive
 ```
-
