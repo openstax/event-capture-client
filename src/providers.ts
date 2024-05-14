@@ -49,9 +49,10 @@ export const referrerProvider = (documentInput?: Document) => {
 export const sourceUriProvider = (windowInput?: Window) => {
   const win = windowInput || (typeof window === 'undefined' ? undefined : window);
 
-  return (params?: {sourceUri?: string}) => () => ({
-    sourceUri: (params && params.sourceUri) ?? (win ? win.location.toString() : ''),
-  });
+  return (params?: {sourceUri?: string}) => {
+    const sourceUri = (params && params.sourceUri) ?? (win ? win.location.toString() : '');
+    return () => ({sourceUri})
+  };
 };
 
 export const stateChangePrevious = () => {
