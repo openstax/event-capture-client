@@ -24,7 +24,8 @@
     "cov:send": "run-s cov:lcov && codecov",
     "cov:check": "nyc report && nyc check-coverage --lines 100 --functions 100 --branches 100",
     "version": "standard-version",
-    "prepare-release": "run-s test version build"
+    "prepare-release": "run-s test version build",
+    "upload": "RAM_DIR=${RAM_DIR:-../ram} ENV_NAME=${ENV_NAME:-prod} && bash -c \"$RAM_DIR/upload.bash $ENV_NAME quasar ./dist/standalone\""
   },
   "engines": {
     "node": ">=10"
@@ -35,6 +36,7 @@
   "devDependencies": {
     "@ava/typescript": "^1.1.1",
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
+    "@rollup/plugin-terser": "^0.4.4",
     "@types/sinon": "^9.0.9",
     "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.0.1",
@@ -53,6 +55,7 @@
     "open-cli": "^6.0.1",
     "rollup": "^2.35.1",
     "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-typescript2": "^0.29.0",
     "sinon": "^9.2.2",
     "standard-version": "^9.0.0",
