@@ -10,7 +10,7 @@ declare global {
 const { capture, configure } = createCaptureContext({initialized: !window._OX_AUTH_TOKEN});
 
 if (window._OX_AUTH_TOKEN) {
-  configure({ headers: { Authorization: window._OX_AUTH_TOKEN } });
+  configure({ headers: { Authorization: `Bearer ${window._OX_AUTH_TOKEN}` } });
 }
 
 export { capture, events };
