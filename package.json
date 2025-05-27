@@ -1,6 +1,6 @@
 {
   "name": "@openstax/event-capture-client",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "send event data to api",
   "repository": "https://github.com/TomWoodward/@openstax/event-capture-client",
   "main": "index.js",
