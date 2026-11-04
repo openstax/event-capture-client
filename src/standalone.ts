@@ -1,16 +1,22 @@
 import * as events from './events';
+import { getAuthHeaders } from './lib/authHeaders';
 import { createCaptureContext } from "./lib/capture";
 
 declare global {
-  // This needs to be a var for the window type to actually have that property
+  // These need to be vars for the window type to actually have the properties
   // eslint-disable-next-line no-var
   var _OX_AUTH_TOKEN: string | undefined;
+  // eslint-disable-next-line no-var
+  var _OX_LAUNCH_TOKEN: string | undefined;
 }
 
-const { capture, configure } = createCaptureContext({initialized: !window._OX_AUTH_TOKEN});
+const headers = getAuthHeaders(window);
+const hasAuth = Object.keys(headers).length > 0;
 
-if (window._OX_AUTH_TOKEN) {
-  configure({ headers: { Authorization: `Bearer ${window._OX_AUTH_TOKEN}` } });
+const { capture, configure } = createCaptureContext({initialized: !hasAuth});
+
+if (hasAuth) {
+  configure({ headers });
 }
 
 export { capture, events };
