@@ -24,7 +24,7 @@ if [ -n "${API_HOST}" ]
 then
   echo "fetching: $protocol://$api_host$swagger_path" > /dev/stderr;
   curl -s "$protocol://$api_host$swagger_path" \
-    | docker run --rm -i stedolan/jq --arg host "$api_host" --arg protocol "$protocol" '. + {host: $host, schemes: [$protocol]}' \
+    | docker run --rm -i ghcr.io/jqlang/jq:1.7.1 --arg host "$api_host" --arg protocol "$protocol" '. + {host: $host, schemes: [$protocol]}' \
     > "$project_dir/swagger.json"
 else
   echo "Using existing swagger file: $project_dir/swagger.json" > /dev/stderr;
