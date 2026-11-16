@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com///compare/v2.0.3...v2.1.0) (2026-11-16)
+
+
+### Features
+
+* send window._OX_LAUNCH_TOKEN as x-launch-token from standalone ([#20](https://github.com//undefined/issues/20)) ([3368aab](https://github.com///commit/3368aab81dcf777765b26e6b3d32cf61edc70516))
+
+
+### Bug Fixes
+
+* use ghcr.io/jqlang/jq in build-swagger-client ([#21](https://github.com//undefined/issues/21)) ([3643c55](https://github.com///commit/3643c5591ef6da6e59d02353a4775bb10d47e3ad))
+
 ### [2.0.4](https://github.com/openstax/event-capture-client/compare/v2.0.3...v2.0.4) (2026-01-09)
 
 ### [2.0.3](https://github.com/openstax/event-capture-client/compare/v2.0.2...v2.0.3) (2025-05-27)
