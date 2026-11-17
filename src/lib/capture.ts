@@ -70,6 +70,8 @@ export const createCaptureContext = (passedOptions: Options = {}) => {
         flush.run();
       }
     });
+    // don't add {capture: true} here, let the helper event run first
+    document.defaultView?.addEventListener('pagehide', flush.run);
   }
 
   return {
@@ -78,4 +80,3 @@ export const createCaptureContext = (passedOptions: Options = {}) => {
     queue: queue as Readonly<Queue>
   };
 };
-
