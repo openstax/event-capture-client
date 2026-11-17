@@ -70,6 +70,7 @@ export const createCaptureContext = (passedOptions: Options = {}) => {
         flush.run();
       }
     });
+    document.defaultView?.addEventListener('pagehide', flush.run);
   }
 
   return {
@@ -78,4 +79,3 @@ export const createCaptureContext = (passedOptions: Options = {}) => {
     queue: queue as Readonly<Queue>
   };
 };
-
